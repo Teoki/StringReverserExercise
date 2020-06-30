@@ -2,30 +2,38 @@ import java.io.*;
 import java.util.Optional;
 import java.util.Scanner;
 
-//TODO github repo erstellen und pushen UND maven einbinden
-
 public class StringReverser {
 
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         System.out.print("1 (Datei einlesen) oder 2 (Text eingabe) eingeben: ");
 
-        //TODO UserInput einbinden
+        //hier kommt der UserInput
         Optional<UserInput> choice = UserInput.of(scanner.next());
 
-        if (choice.equals(1)) {
-            try {
-                readAndReverseFile("resources/Text");
-            } catch (IOException e) {
-                System.out.println("Datei konnte nicht geöffnet werden");
-            }
-        }
+        //
+        choice.ifPresent(userInput -> {
 
-        if (choice.equals(2)) {
-            System.out.print("Gebe ein Wort ein: ");
-            String input = scanner.next();
-            reverseString(input);
-        }
+            switch (userInput.choice) {
+
+                case 1:
+                    try {
+                        readAndReverseFile("resources/Text");
+                    } catch (IOException e) {
+                        System.out.println("Datei konnte nicht geöffnet werden");
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Gebe ein Wort ein: ");
+                    String input = scanner.next();
+                    reverseString(input);
+                    break;
+
+            }
+
+        });
+
         scanner.close();
     }
 
