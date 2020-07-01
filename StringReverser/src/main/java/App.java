@@ -1,6 +1,7 @@
 import java.util.Optional;
 import java.util.Scanner;
 
+//TODO git-ignore file konfigurieren
 public class App {
 
     public static void main(String[] args) {
@@ -9,7 +10,7 @@ public class App {
         Optional<UserInput> choice = UserInput.of(scanner.nextLine());
         //wenn choice überhaupt eine gültige zahl gespeichert hat dann nimm diese zahl (also den userinput und mache folgendes -->{...})
         choice.ifPresent(userInput -> {
-            //TODO hier das Strategy pattern implementieren case 1 ist ein strategy und case 2 ist ein strategy
+            //hier ist das Strategy pattern implementiert
             switch (userInput.choice) {
                 case 1:
                     Reader.getInput(new FileInputStrategy());
