@@ -1,8 +1,7 @@
-import java.io.*;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class StringReverser {
+public class App {
 
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
@@ -13,10 +12,10 @@ public class StringReverser {
             //TODO hier das Strategy pattern implementieren case 1 ist ein strategy und case 2 ist ein strategy
             switch (userInput.choice) {
                 case 1:
-                    new FileReverser().readAndReverse();
+                    Reader.getInput(new FileInputStrategy());
                     break;
                 case 2:
-                    new UserInputReverser().readAndReverse();
+                    Reader.getInput(new CommandLineInputStrategy());
                     break;
             }
         });
@@ -26,13 +25,6 @@ public class StringReverser {
         }
 
         scanner.close();
-    }
-
-    private static void reverseString(String input) {
-        StringBuilder reversedInput = new StringBuilder();
-        reversedInput.append(input);
-        reversedInput.reverse();
-        System.out.println("Eingabe umgekehrt: " + reversedInput);
     }
 
 }

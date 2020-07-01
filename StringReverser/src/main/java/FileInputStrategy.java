@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileReverser implements Reverser {
+public class FileInputStrategy implements StringInputStrategy {
     @Override
     public void readAndReverse() {
         try {
@@ -10,14 +10,6 @@ public class FileReverser implements Reverser {
         } catch (IOException e) {
             System.out.println("Datei konnte nicht geöffnet werden");
         }
-    }
-
-    @Override
-    public void reverseString(String input) {
-        StringBuilder reversedInput = new StringBuilder();
-        reversedInput.append(input);
-        reversedInput.reverse();
-        System.out.println("Eingabe umgekehrt: " + reversedInput);
     }
 
     private void readAndReverseFile(String dateiname) throws IOException {
