@@ -1,8 +1,11 @@
+package de.check24.teosuper.projects;
+
 import java.util.Optional;
 import java.util.Scanner;
 
-//TODO git-ignore file konfigurieren
 public class App {
+
+    public static final String ERROR_MESSAGE = "Sie können ja nur 1 oder 2 eingeben";
 
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
@@ -12,20 +15,29 @@ public class App {
         choice.ifPresent(userInput -> {
             //hier ist das Strategy pattern implementiert
             switch (userInput.choice) {
-                case 1:
-                    Reader.getInput(new FileInputStrategy());
+                //TODO ENUMS BENUTZEN per enum klasse
+                case "1":
+                    choice1();
                     break;
-                case 2:
-                    Reader.getInput(new CommandLineInputStrategy());
+                case "2":
+                    choice2();
                     break;
             }
         });
 
         if (!choice.isPresent()) {
-            System.out.print("Sie können nur 1 oder 2 eingeben");
+            System.out.print(ERROR_MESSAGE);
         }
 
         scanner.close();
+    }
+
+    public static void choice2() {
+        Reader.getInput(new CommandLineInputStrategy());
+    }
+
+    public static void choice1() {
+        Reader.getInput(new FileInputStrategy());
     }
 
 }

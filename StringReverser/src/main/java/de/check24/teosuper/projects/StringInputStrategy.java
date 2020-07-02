@@ -1,3 +1,5 @@
+package de.check24.teosuper.projects;
+
 public interface StringInputStrategy {
 
     void readAndReverse();

@@ -1,3 +1,5 @@
+package de.check24.teosuper.projects;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

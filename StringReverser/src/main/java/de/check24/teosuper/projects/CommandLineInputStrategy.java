@@ -1,3 +1,5 @@
+package de.check24.teosuper.projects;
+
 import java.util.Scanner;
 
 public class CommandLineInputStrategy implements StringInputStrategy {
