@@ -11,20 +11,23 @@ public class FileInputStrategy implements StringInputStrategy {
             readAndReverseFile("resources/Text");
         } catch (IOException e) {
             System.out.println("Datei konnte nicht geöffnet werden");
+        } finally {
+            System.out.println("I've tried");
         }
     }
 
     private void readAndReverseFile(String dateiname) throws IOException {
         FileReader input = new FileReader(dateiname);
-        BufferedReader bufferedInput = new BufferedReader(input);
+        try(BufferedReader bufferedInput = new BufferedReader(input)) {
 
-        String inputLine = bufferedInput.readLine();
+            String inputLine = bufferedInput.readLine();
 
-        System.out.println(inputLine);
+            System.out.println(inputLine);
 
-        while (inputLine != null) {
-            reverseString(inputLine);
-            inputLine = bufferedInput.readLine();
+            while (inputLine != null) {
+                reverseString(inputLine);
+                inputLine = bufferedInput.readLine();
+            }
         }
     }
 
