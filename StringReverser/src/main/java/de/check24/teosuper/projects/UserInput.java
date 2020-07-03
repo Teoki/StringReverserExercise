@@ -5,21 +5,17 @@ import java.util.Optional;
 //data transfer object
 public class UserInput {
 
-    public final String choice;
+    public final EnumInputChoices choice;
 
-    private UserInput(String choice) {
+    private UserInput(EnumInputChoices choice) {
         this.choice = choice;
     }
 
     //factory method (wird benutzt um den konstruktor zu validieren)
     public static Optional<UserInput> of(String choice) {
         try {
-            final int intChoice = Integer.parseInt(choice);
-            //TODO ENUMS ANSTATT INT
-            if (intChoice > 2 || intChoice < 1) {
-                return Optional.empty();
-            }
-            return Optional.of(new UserInput(choice));
+            final EnumInputChoices enumChoice = EnumInputChoices.findByValue(choice);
+            return Optional.of(new UserInput(enumChoice));
         } catch (Throwable e) {
             return Optional.empty();
         }

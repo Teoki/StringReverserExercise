@@ -10,12 +10,18 @@ import java.io.InputStream;
 import java.io.PrintStream;
 
 import static de.check24.teosuper.projects.App.ERROR_MESSAGE;
+import static de.check24.teosuper.projects.App.INFORMATION_MESSAGE_CHOICE;
 import static org.junit.Assert.*;
 
 public class AppTest {
-
-    //TODO Test schreiben mit input von der console und test für file auslesen und überprüfen ob es rückwärts ausgegeben wird
-    //TODO Testen: 1 eingeben, dann File auslesen, dann Ergebins checken
+    private static final String FILE_CONTENT = "Hallo, das ist ein kurzer Satz.\n";
+    private static final String FILE_CONTENT_REVERSED = "Eingabe umgekehrt: .ztaS rezruk nie tsi sad ,ollaH\n";
+    private static final String USER_INPUT = "Hallo";
+    private static final String USER_INPUT_REVERSED = "ollaH";
+    private static final String USER_INPUT_2 = "Test";
+    private static final String USER_INPUT_2_REVERSED = "tseT";
+    private static final String INCORRECT_CHOICE = "3";
+    private static final String INCORRECT_CHOICE_2 = "Blub";
 
     private final InputStream systemIn = System.in;
     private final PrintStream systemOut = System.out;
@@ -49,32 +55,31 @@ public class AppTest {
     }
 
     //Wenn diese Methode gestestet wird, werden die helper Methoden aufgerufen
+    //TODO Problem war, dass es kein findByValue gab. Er hat nur nach einem Enum gesucht was "1" heißt und nicht nach dem Wert "1" von CHOICE_FILE_INPUT
     @Test
     public void positiveFileInputTest() {
-        //TODO choice wird auch zu einem enum aus der enum klasse
-        runFileTest("1", "Hallo, das ist ein kurzer Satz.\n" +
-                "Eingabe umgekehrt: .ztaS rezruk nie tsi sad ,ollaH\n");
+        runFileTest(EnumInputChoices.CHOICE_FILE_INPUT.getValue(), FILE_CONTENT + FILE_CONTENT_REVERSED);
     }
 
     @Test
     public void negativeFileInputTest() {
-        runFileTest("3", ERROR_MESSAGE);
+        runFileTest(INCORRECT_CHOICE, ERROR_MESSAGE);
     }
 
     @Test
     public void negativeFileInputTest2() {
-        runFileTest("Blub", ERROR_MESSAGE);
+        runFileTest(INCORRECT_CHOICE_2, ERROR_MESSAGE);
     }
 
 
     @Test
     public void positiveCommandLineInputTest() {
-        runCommandLineTest("Hallo", "ollaH");
+        runCommandLineTest(USER_INPUT, USER_INPUT_REVERSED);
     }
 
     @Test
     public void positiveCommandlineInputTest2() {
-        runCommandLineTest("Test", "tseT");
+        runCommandLineTest(USER_INPUT_2, USER_INPUT_2_REVERSED);
     }
 
     private void runFileTest(final String choice, String expectedResult) {
@@ -86,7 +91,7 @@ public class AppTest {
 
     private void runCommandLineTest(String userInput, String expectedResult) {
         provideInput(userInput);
-        App.choice2();
+        App.workWithCommandLineInput();
         final String expected = getExpectedString(expectedResult);
         assertEquals(expected, getOutput());
     }
@@ -97,7 +102,7 @@ public class AppTest {
     }
 
     private String getExpectedFileString(String data) {
-        return "1 (Datei einlesen) oder 2 (Text eingabe) eingeben: " + data;
+        return INFORMATION_MESSAGE_CHOICE + data;
     }
 
 }
