@@ -8,4 +8,18 @@ public class Pin {
         this.pin = pin;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pin pin1 = (Pin) o;
+
+        return pin.equals(pin1.pin);
+    }
+
+    @Override
+    public int hashCode() {
+        return pin.hashCode();
+    }
 }

@@ -5,10 +5,10 @@ import com.google.common.collect.ImmutableList;
 public class AtmAndMenus {
 
     public final int atmId;
-    public final ImmutableList<Integer> menusId;
+    public final ImmutableList<Integer> menuIds;
 
-    public AtmAndMenus(int atmId, ImmutableList<Integer> menusId) {
+    public AtmAndMenus(int atmId, ImmutableList<Integer> menuIds) {
         this.atmId = atmId;
-        this.menusId = menusId;
+        this.menuIds = menuIds;
     }
 }

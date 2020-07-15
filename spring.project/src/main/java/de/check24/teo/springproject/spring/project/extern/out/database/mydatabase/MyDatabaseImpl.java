@@ -6,25 +6,28 @@ import de.check24.teo.springproject.spring.project.core.externalinterfaces.Datab
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class MyDatabaseImpl implements Database {
 
-    //                cardID, pin&currentAmount
-    private final Map<String, CardDataDao> cardList;
+    private final Map<CardId, CardDataDao> cardList;
 
     public MyDatabaseImpl() {
         cardList = new HashMap<>();
         int otherData = 1;
-        cardList.put("1234567", new CardDataDao("0987", 1000, otherData));
-        cardList.put("1122334", new CardDataDao("1122", 500, otherData));
-        cardList.put("0302010", new CardDataDao("0000", 250, otherData));
-        cardList.put("7897897", new CardDataDao("7897", 125, otherData));
-        cardList.put("9876543", new CardDataDao("9876", 0, otherData));
+        cardList.put(new CardId("1234567"), new CardDataDao("0987", 1000, otherData, new CardId("1234567")));
+        cardList.put(new CardId("1122334"), new CardDataDao("1122", 500, otherData, new CardId("1122334")));
+        cardList.put(new CardId("0302010"), new CardDataDao("0000", 250, otherData, new CardId("0302010")));
+        cardList.put(new CardId("7897897"), new CardDataDao("7897", 125, otherData, new CardId("7897897")));
+        cardList.put(new CardId("9876543"), new CardDataDao("9876", 0, otherData, new CardId("9876543")));
     }
 
-
     @Override
-    public CardData getCardDataByCardId(CardId cardId) {
-        return null;
+    public Optional<CardData> getCardDataByCardId(CardId cardId) {
+        try {
+            return Optional.of(cardList.get(cardId).toDto());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 }
