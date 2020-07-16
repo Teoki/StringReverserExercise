@@ -27,11 +27,10 @@ public class Application implements CommandLineRunner {
     public void run(String... args) {
         LOG.info("EXECUTING : run() method");
         final Bank bank = new Bank(new MyDatabaseImpl());
-        final Service service = new Service(bank.database);
+        final Service service = new Service(bank.database, bank);
 
         Optional<UserInput> input = UserInput.of(args); //kann empty sein, falls unvalide eingabe
         input.ifPresent(in -> {
-            //service.runAtmAndMenuAction();
             service.runAction(input.get().cardId, input.get().pin, input.get().atmAndMenus, input.get().amount);
         });
     }

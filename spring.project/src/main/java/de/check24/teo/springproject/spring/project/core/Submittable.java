@@ -2,6 +2,8 @@ package de.check24.teo.springproject.spring.project.core;
 
 public interface Submittable {
 
-    int submit(int cardId,int pin);
+    default void submit(int cardId) {};
+    default void submit(int cardId, int amount) {};
+    boolean needAmount();
 
 }

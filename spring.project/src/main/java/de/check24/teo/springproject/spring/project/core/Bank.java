@@ -4,6 +4,7 @@ import de.check24.teo.springproject.spring.project.core.externalinterfaces.Datab
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Bank { //Bank is set in config??
 
@@ -13,11 +14,25 @@ public class Bank { //Bank is set in config??
 
     public Bank(Database database) {
         this.database = database;
-        final Atm atmSSK = new Atm(1);
-        final Atm atmTargo = new Atm(2);
+        final Atm atmOne = new Atm(111);
+        final Atm atmTwo = new Atm(222);
         atmList = new ArrayList<>();
-        atmList.add(atmSSK);
-        atmList.add(atmTargo);
+        atmList.add(atmOne);
+        atmList.add(atmTwo);
         this.id = 1;
+    }
+
+    public Optional<Atm> getByAtmId(int id) {
+        /*
+        atmList.forEach(atm -> {
+            if (atm.id == id)
+                return Optional.of(atm);
+        });
+        */
+        for (Atm atm : atmList) {
+            if (atm.id == id)
+                return Optional.of(atm);
+        }
+        return Optional.empty();
     }
 }
