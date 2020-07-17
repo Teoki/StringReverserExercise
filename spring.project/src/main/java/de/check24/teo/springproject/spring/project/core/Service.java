@@ -25,13 +25,13 @@ public class Service {
                 System.out.println("Your requested amount will be submitted...");
                 bank
                         .getByAtmId(atmAndMenus.atmId).get()
-                        .getByMenuButtonLabel(atmAndMenus.menuIds.get(0)).get() //TODO hier ist noch ein fehler, wrs lieber nur "atmAndMenus.menuIds" nehmen
+                        .getByMenuButtonId(atmAndMenus.menuIds.get(0)).get()
                         .submit(atmAndMenus.menuIds.subList(1, atmAndMenus.menuIds.size()), cardId, amount);
                 System.out.println(bank.getByAtmId(atmAndMenus.atmId));
 
             } else {
-                System.out.println("Please try again: (or: CANCELED)");
                 //TODO erneute eingabe anfordern oder abbrechen, falls requested amount empty ist
+                System.out.println("Please try again: (or: CANCELED)");
             }
         });
     }

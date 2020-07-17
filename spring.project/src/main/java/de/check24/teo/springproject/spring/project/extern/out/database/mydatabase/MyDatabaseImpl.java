@@ -1,5 +1,6 @@
 package de.check24.teo.springproject.spring.project.extern.out.database.mydatabase;
 
+import de.check24.teo.springproject.spring.project.core.dtos.Amount;
 import de.check24.teo.springproject.spring.project.core.dtos.CardData;
 import de.check24.teo.springproject.spring.project.core.dtos.CardId;
 import de.check24.teo.springproject.spring.project.core.externalinterfaces.Database;
@@ -29,5 +30,19 @@ public class MyDatabaseImpl implements Database {
         } catch (Exception e) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public void withdraw(CardId cardId, Amount requestedAmount) {
+        System.out.println("Ihr Kontostand vor dem abheben betrug: " + cardList.get(cardId).getCurrentAmount());
+        cardList.get(cardId).setCurrentAmount(cardList.get(cardId).getCurrentAmount() - requestedAmount.amount);
+        System.out.println("Ihr Kontostand nach dem abheben beträgt: " + cardList.get(cardId).getCurrentAmount());
+    }
+
+    @Override
+    public void deposit(CardId cardId, Amount amount) {
+        System.out.println("Ihr Kontostand vor der Einzahlung: " + cardList.get(cardId).getCurrentAmount());
+        cardList.get(cardId).setCurrentAmount(cardList.get(cardId).getCurrentAmount() + amount.amount);
+        System.out.println("Ihr Kontostand nach der Einzahlung: " + cardList.get(cardId).getCurrentAmount());
     }
 }

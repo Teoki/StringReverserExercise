@@ -14,8 +14,8 @@ public class Bank { //Bank is set in config??
 
     public Bank(Database database) {
         this.database = database;
-        final Atm atmOne = new Atm(111);
-        final Atm atmTwo = new Atm(222);
+        final Atm atmOne = new Atm(111, database);
+        final Atm atmTwo = new Atm(222, database);
         atmList = new ArrayList<>();
         atmList.add(atmOne);
         atmList.add(atmTwo);

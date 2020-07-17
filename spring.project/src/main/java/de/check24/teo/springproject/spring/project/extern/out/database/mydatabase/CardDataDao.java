@@ -21,6 +21,10 @@ public class CardDataDao { // For DB only! (Dao = Data access object)
         return pin;
     }
 
+    public void setCurrentAmount(int currentAmount) {
+        this.currentAmount = currentAmount;
+    }
+
     public int getCurrentAmount() {
         return currentAmount;
     }
