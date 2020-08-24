@@ -42,7 +42,7 @@ public class UserInput {
             //if (isNotBlank(inputCardId)) hier die Validierung der args (z.B. ob die länge passt, das richtige eingegeben wurde usw)
             final Optional<Amount> optionalAmount = args.length > 3 ? Optional.of(new Amount(Integer.valueOf(args[3]))) : Optional.empty();
 
-            return Optional.of(new UserInput(new CardId(args[1]), new Pin(args[2]), new AtmAndMenus(atmId, menuIds), optionalAmount)); //TODO restliche dtos -> neues objekt mit args parameter (nach Validation wrs mit variablen) übergeben
+            return Optional.of(new UserInput(new CardId(args[1]), new Pin(args[2]), new AtmAndMenus(atmId, menuIds), optionalAmount));
         } catch (Throwable e) {
             return Optional.empty();
         }
