@@ -23,16 +23,8 @@ public class Bank { //Bank is set in config??
     }
 
     public Optional<Atm> getByAtmId(int id) {
-        /*
-        atmList.forEach(atm -> {
-            if (atm.id == id)
-                return Optional.of(atm);
-        });
-        */
-        for (Atm atm : atmList) {
-            if (atm.id == id)
-                return Optional.of(atm);
-        }
-        return Optional.empty();
+
+        return atmList.stream().filter(e->e.id == id).findFirst();
+
     }
 }
