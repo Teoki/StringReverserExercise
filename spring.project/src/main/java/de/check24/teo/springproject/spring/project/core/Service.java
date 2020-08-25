@@ -5,12 +5,11 @@ import de.check24.teo.springproject.spring.project.core.externalinterfaces.Datab
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@Component //ist und macht das selbe wie @org.springframework.stereotype.Service. (Das ist nur spezifischer)
+@org.springframework.stereotype.Service //ist und macht das selbe wie @Component (Service nur spezifischer)
 public class Service {
 
     private static Logger LOG = LoggerFactory.getLogger(Service.class);

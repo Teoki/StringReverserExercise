@@ -26,9 +26,9 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) {
         LOG.info("EXECUTING : run() method");
-
         UserInput.of(args).ifPresent(in -> { //kann empty sein, falls unvalide eingabe
             service.runAction(in.cardId, in.pin, in.atmAndMenus, in.amount);
         });
     }
+
 }
