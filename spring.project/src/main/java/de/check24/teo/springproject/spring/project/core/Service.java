@@ -2,6 +2,7 @@ package de.check24.teo.springproject.spring.project.core;
 
 import de.check24.teo.springproject.spring.project.core.dtos.*;
 import de.check24.teo.springproject.spring.project.core.externalinterfaces.Database;
+import io.vavr.control.Either;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class Service {
         this.bank = bank;
     }
 
-    public void runAction(CardId cardId, Pin pin, AtmAndMenus atmAndMenus, Optional<Amount> amount) {
+    public Either<Throwable, Integer> runAction(CardId cardId, Pin pin, AtmAndMenus atmAndMenus, Optional<Amount> amount) {
         database.getCardDataByCardId(cardId).ifPresent(cardData -> {
             //Inputs werden überprüft (richtiger Pin und genügend Geld zum abheben)
             if (isInputCorrect(cardId, pin, amount, cardData)) {
@@ -34,6 +35,7 @@ public class Service {
                 LOG.info("id: {}", bank.getByAtmId(atmAndMenus.atmId).get().id); //für jeden weiteren Parameter immer ein {} dazu z.B. LOG.info("id: {}{}{}", object1, object2, object3)
             } else {
                 //erneute Eingabe anfordern oder abbrechen, falls requested amount empty ist
+                //TODO Either returnen: für left Exception für zu wenig Geld ODER für right die Menge an Geld
                 LOG.info("Please try again: (or: CANCELED)");
             }
         });

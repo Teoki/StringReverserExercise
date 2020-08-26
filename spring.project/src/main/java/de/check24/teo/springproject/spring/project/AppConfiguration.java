@@ -47,13 +47,13 @@ public class AppConfiguration {
     @Autowired
     @Bean
     public MenuButton hundredMenuButton(@Qualifier("withAndWithOutMenuButtonSubList") List<MenuButton> withAndWithOutMenuButtonSubList) {
-        return new MenuButton(withAndWithOutMenuButtonSubList, 2, "100", new Amount(50));
+        return new MenuButton(withAndWithOutMenuButtonSubList, 2, "100", new Amount(100));
     }
 
     @Autowired
     @Bean
     public MenuButton fiveHundredMenuButton(@Qualifier("withAndWithOutMenuButtonSubList") List<MenuButton> withAndWithOutMenuButtonSubList) {
-        return new MenuButton(withAndWithOutMenuButtonSubList, 3, "500", new Amount(50));
+        return new MenuButton(withAndWithOutMenuButtonSubList, 3, "500", new Amount(500));
     }
 
     @Autowired
