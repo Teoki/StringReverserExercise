@@ -58,7 +58,7 @@ public class AppConfiguration {
 
     @Autowired
     @Bean
-    public MenuButton customAmount(@Qualifier("customAmount") List<MenuButton> withAndWithOutMenuButtonSubList) {
+    public MenuButton customAmount(@Qualifier("withAndWithOutMenuButtonSubList") List<MenuButton> withAndWithOutMenuButtonSubList) {
         return new MenuButton(withAndWithOutMenuButtonSubList, 4, "Custom Amount");
     }
 

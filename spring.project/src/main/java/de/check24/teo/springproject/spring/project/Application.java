@@ -1,9 +1,7 @@
 package de.check24.teo.springproject.spring.project;
 
-import de.check24.teo.springproject.spring.project.core.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,8 +10,10 @@ public class Application {
 
     private static Logger LOG = LoggerFactory.getLogger(Application.class);
 
+    /*
     @Autowired
     private Service service; //für dependency Injection und @Component für Inversion of Control, Autowire am besten immer im Konstruktor verwenden, damit leichter getestet werden kann
+    */
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

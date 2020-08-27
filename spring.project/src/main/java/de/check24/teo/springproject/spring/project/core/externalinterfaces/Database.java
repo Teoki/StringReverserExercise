@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface Database {
     Optional<CardData> getCardDataByCardId(CardId cardId);
 
-    void withdraw(CardId cardId, Amount amount);
+    Integer withdraw(CardId cardId, Amount amount);
 
-    void deposit(CardId cardId, Amount amount);
+    Integer deposit(CardId cardId, Amount amount);
 }

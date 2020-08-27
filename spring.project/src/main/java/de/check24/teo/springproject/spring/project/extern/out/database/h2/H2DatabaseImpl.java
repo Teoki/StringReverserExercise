@@ -44,21 +44,21 @@ public class H2DatabaseImpl implements Database {
     }
 
     @Override
-    public void withdraw(CardId cardId, Amount requestedAmount) {
+    public Integer withdraw(CardId cardId, Amount requestedAmount) {
         final CardDataEntity entity = cardDataRepository.findByCardId(cardId.value);
         LOG.info("Ihr Kontostand vor dem Abheben betrug: " + entity.getCurrentAmount());
         entity.setCurrentAmount(entity.getCurrentAmount() - requestedAmount.amount);
         //Datenbank updaten, sobald die entity verändert wurde wird
         cardDataRepository.save(entity);
-        LOG.info("Ihr Kontostand nach dem Abheben beträgt: " + cardDataRepository.findByCardId(cardId.value).getCurrentAmount());
+        return cardDataRepository.findByCardId(cardId.value).getCurrentAmount();
     }
 
     @Override
-    public void deposit(CardId cardId, Amount depositedAmount) {
+    public Integer deposit(CardId cardId, Amount depositedAmount) {
         final CardDataEntity entity = cardDataRepository.findByCardId(cardId.value);
         LOG.info("Ihr Kontostand vor der Einzahlung: " + entity.getCurrentAmount());
         entity.setCurrentAmount(entity.getCurrentAmount() + depositedAmount.amount);
-        LOG.info("Ihr Kontostand nach der Einzahlung: " + cardDataRepository.findByCardId(cardId.value).getCurrentAmount());
+        return cardDataRepository.findByCardId(cardId.value).getCurrentAmount();
     }
 
 }

@@ -11,9 +11,7 @@ import org.hibernate.internal.util.StringHelper;
 import org.springframework.http.ResponseEntity;
 
 import javax.xml.bind.ValidationException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

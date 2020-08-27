@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 public class MenuButton {
 
@@ -17,7 +17,7 @@ public class MenuButton {
     public final int id;
     public final String label;
     public final Optional<Amount> fixedAmount;
-    private BiConsumer<CardId, Amount> callDB;
+    private BiFunction<CardId, Amount, Integer> callDB;
 
     public MenuButton(List<MenuButton> subMenuButtonsList, int id, String label, Amount fixedAmount) {
         this.subMenuButtonsList = Collections.unmodifiableList(subMenuButtonsList);
@@ -31,22 +31,20 @@ public class MenuButton {
         this(subMenuButtonsList, id, label, null); //null, weil dieser Wert nie aufgerufen wird (siehe "submit()" unten)
     }
 
-    public MenuButton(int id, String label, BiConsumer<CardId, Amount> callDB) {
+    public MenuButton(int id, String label, BiFunction<CardId, Amount, Integer> callDB) {
         this(Collections.emptyList(), id, label);
         this.callDB = callDB;
     }
 
-    public void submit(List<Integer> menuIds, CardId cardId, Optional<Amount> amount) {
-        if (menuIds.size() == 0) {
-            LOG.info("SUBMIT STARTED");
-            callDB.accept(cardId, amount.get());
-            LOG.info("SUBMIT FINISHED");
+    public Integer submit(List<Integer> menuIdList, CardId cardId, Optional<Amount> amount) {
+        if (menuIdList.size() == 0) {
+            return callDB.apply(cardId, amount.get());
         } else {
-            final Optional<MenuButton> first = subMenuButtonsList.stream().filter(e -> e.id == menuIds.get(0)).findFirst(); //ruf solange die subMenus auf bis menuIds == 0 sind
+            final Optional<MenuButton> first = subMenuButtonsList.stream().filter(e -> e.id == menuIdList.get(0)).findFirst(); //ruf solange die subMenus auf bis menuIds == 0 sind
             if (first.isPresent()) {
-                first.get().submit(menuIds.subList(1, menuIds.size()), cardId, fixedAmount.isPresent() ? fixedAmount : amount);
+                return first.get().submit(menuIdList.subList(1, menuIdList.size()), cardId, fixedAmount.isPresent() ? fixedAmount : amount);
             } else {
-                LOG.info("You didn't choose with or without check (444 With Check or 555 Without Check)");
+                throw new IllegalStateException("You didn't choose with or without check (444 With Check or 555 Without Check)");
             }
         }
     }
