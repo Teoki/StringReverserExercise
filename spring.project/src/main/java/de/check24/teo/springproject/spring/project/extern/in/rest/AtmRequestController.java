@@ -16,6 +16,12 @@ import java.util.Optional;
 @RestController
 public class AtmRequestController {
 
+    public static final String URI = "/atms/{atmId}/menus/{menuIds}";
+    public static final String ATM_ID = "atmId";
+    public static final String MENU_IDS = "menuIds";
+    public static final String CARD_ID = "cardId";
+    public static final String PIN = "pin";
+    public static final String AMOUNT = "amount";
     private static Logger LOG = LoggerFactory.getLogger(AtmRequestController.class);
 
     @Autowired
@@ -24,10 +30,10 @@ public class AtmRequestController {
     //Für Request:  --> bei mehreren @RequestParam immer ' benutzen
     //curl -i -H "Content-Type: application/json" -X GET 'http://localhost:8080/atms/111/menus/11,1,444?cardId=1234567&pin=0987&amount=500' für request mit Body
     //curl -i -X GET 'http://localhost:8080/atms/111/menus/11,1,444?cardId=1234567&pin=0987&amount=500' für request ohne Body
-    @GetMapping("/atms/{atmId}/menus/{menuIds}")
-    public ResponseEntity<Object> run(@PathVariable(value = "atmId") Optional<String> atmId, @PathVariable(value = "menuIds") Optional<String> menuIds,
-                                      @RequestParam(value = "cardId") Optional<String> cardId, @RequestParam(value = "pin") Optional<String> pin,
-                                      @RequestParam(value = "amount") Optional<String> amount) {
+    @GetMapping(URI)
+    public ResponseEntity<Object> run(@PathVariable(value = ATM_ID) Optional<String> atmId, @PathVariable(value = MENU_IDS) Optional<String> menuIds,
+                                      @RequestParam(value = CARD_ID) Optional<String> cardId, @RequestParam(value = PIN) Optional<String> pin,
+                                      @RequestParam(value = AMOUNT) Optional<String> amount) {
         return RunAPIv1.of(atmId, menuIds, cardId, pin, amount)
                 .fold(r -> r, in -> { //rechts wird runAction aufgerufen, links nichts
                     return service.runAction(in.cardId, in.pin, in.atmAndMenus, in.amount)

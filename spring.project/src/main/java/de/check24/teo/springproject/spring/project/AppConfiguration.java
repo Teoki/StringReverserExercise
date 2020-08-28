@@ -17,6 +17,8 @@ import static java.util.Collections.*;
 @Configuration
 public class AppConfiguration {
 
+    public static final int ATM111 = 111;
+
     @Autowired
     @Bean
     public MenuButton withCheck(Database database) {
@@ -98,7 +100,7 @@ public class AppConfiguration {
     @Autowired
     @Bean
     public Atm atmOne(@Qualifier("menuButtonList") List<MenuButton> menuButtonList) {
-        return new Atm(111, menuButtonList);
+        return new Atm(ATM111, menuButtonList);
     }
 
     @Bean

@@ -3,6 +3,7 @@ package de.check24.teo.springproject.spring.project.core;
 import de.check24.teo.springproject.spring.project.core.externalinterfaces.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Bank {
     public final int id;
 
     @Autowired
-    public Bank(Database database, @Qualifier("atmOne") Atm atmOne, @Qualifier("atmTwo") Atm atmTwo) { //da mit @Autowired annotiert, sucht Spring nach einer @Component (im Inversion of Control-context), die Database implementiert. Bei mehreren Implementierungen von Database gibt es einen Error
+    public Bank(Database database, @Qualifier("atmOne") Atm atmOne, @Qualifier("atmTwo") Atm atmTwo, @Value("${bankId}") int bankId) { //da mit @Autowired annotiert, sucht Spring nach einer @Component (im Inversion of Control-context), die Database implementiert. Bei mehreren Implementierungen von Database gibt es einen Error
         this.database = database;
 
         final List<Atm> atmList = new ArrayList<>();
@@ -26,7 +27,7 @@ public class Bank {
         atmList.add(atmTwo);
 
         this.atmList = Collections.unmodifiableList(atmList);
-        this.id = 1;
+        this.id = bankId;
     }
 
     public Optional<Atm> getByAtmId(int id) {
