@@ -58,6 +58,7 @@ public class H2DatabaseImpl implements Database {
         final CardDataEntity entity = cardDataRepository.findByCardId(cardId.value);
         LOG.info("Ihr Kontostand vor der Einzahlung: " + entity.getCurrentAmount());
         entity.setCurrentAmount(entity.getCurrentAmount() + depositedAmount.amount);
+        cardDataRepository.save(entity);
         return cardDataRepository.findByCardId(cardId.value).getCurrentAmount();
     }
 

@@ -58,14 +58,20 @@ public class AppConfiguration {
 
     @Autowired
     @Bean
-    public MenuButton customAmount(@Qualifier("withAndWithOutMenuButtonSubList") List<MenuButton> withAndWithOutMenuButtonSubList) {
+    public MenuButton customAmountWithDraw(@Qualifier("withAndWithOutMenuButtonSubList") List<MenuButton> withAndWithOutMenuButtonSubList) {
         return new MenuButton(withAndWithOutMenuButtonSubList, 4, "Custom Amount");
     }
 
     @Autowired
     @Bean
+    public MenuButton customAmountDeposit(Database database) {
+        return new MenuButton(5, "Custom Amount", database::deposit);
+    }
+
+    @Autowired
+    @Bean
     public MenuButton withDrawButton(@Qualifier("fiftyMenuButton") MenuButton fiftyMenuButton, @Qualifier("hundredMenuButton") MenuButton hundredMenuButton,
-                                     @Qualifier("fiveHundredMenuButton") MenuButton fiveHundredMenuButton, @Qualifier("customAmount") MenuButton customAmount) {
+                                     @Qualifier("fiveHundredMenuButton") MenuButton fiveHundredMenuButton, @Qualifier("customAmountWithDraw") MenuButton customAmount) {
         return new MenuButton(Arrays.asList(
                 fiftyMenuButton,
                 hundredMenuButton,
@@ -85,8 +91,8 @@ public class AppConfiguration {
 
     @Autowired
     @Bean
-    public MenuButton depositButton(Database database) {
-        return new MenuButton(singletonList(new MenuButton(4, "Custom Amount", database::deposit)), 22, "Deposit");
+    public MenuButton depositButton(@Qualifier("customAmountDeposit") MenuButton customAmount) {
+        return new MenuButton(singletonList(customAmount), 22, "Deposit");
     }
 
     @Autowired

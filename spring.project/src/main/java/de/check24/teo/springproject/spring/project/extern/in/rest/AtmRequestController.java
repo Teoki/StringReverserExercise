@@ -21,7 +21,9 @@ public class AtmRequestController {
     @Autowired
     private Service service;    //Dependency Injection, findet die passende Implementierung von Service (wenns vererben würde, würde Spring durch @Autowired die erbende Klasse finden)
 
-    //Für Request: curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET 'http://localhost:8080/atms/111/menus/11/menus/1/menus/444?cardId=1234567&pin=0987&amount=500' --> bei mehreren @RequestParam immer ' benutzen
+    //Für Request:  --> bei mehreren @RequestParam immer ' benutzen
+    //curl -i -H "Content-Type: application/json" -X GET 'http://localhost:8080/atms/111/menus/11,1,444?cardId=1234567&pin=0987&amount=500' für request mit Body
+    //curl -i -X GET 'http://localhost:8080/atms/111/menus/11,1,444?cardId=1234567&pin=0987&amount=500' für request ohne Body
     @GetMapping("/atms/{atmId}/menus/{menuIds}")
     public ResponseEntity<Object> run(@PathVariable(value = "atmId") Optional<String> atmId, @PathVariable(value = "menuIds") Optional<String> menuIds,
                                       @RequestParam(value = "cardId") Optional<String> cardId, @RequestParam(value = "pin") Optional<String> pin,
